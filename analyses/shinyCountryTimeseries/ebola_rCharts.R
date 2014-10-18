@@ -6,6 +6,10 @@ library(ggplot2)
 library(rCharts)
 setwd("~/GitHub/ebola/analyses/shinyCountryTimeseries/")
 
+##############
+# FUNCTIONS
+##############
+
 url <- "https://raw.githubusercontent.com/cmrivers/ebola/master/country_timeseries.csv"
 getData <- function(url) {
 ## gets ebola data from GitHub repo
@@ -36,6 +40,9 @@ toJsDate <- function(date){
     as.numeric(val)
 }
 
+##############
+# PRE-PROCESS
+##############
 
 df <- getData(url)
 df$Date <- sapply(df$Date, standardizeDate, USE.NAMES = FALSE)
@@ -59,11 +66,16 @@ ebola <- df_melt %>%
 # ebola_merge <- merge(ebola_cases, ebola_deaths, by = c("Date", "Country"))
 # names(ebola_merge) <- c("Date", "Country", "Cases", "Deaths")
 
+
+##############
+# rCharts
+##############
+
 ## multibarchart with NVD3
 ebola_last <- ebola %>%
     group_by(Country) %>%
     top_n(Date, n = 1)
-
+## plot
 n1 <- nPlot(Count ~ Type, group = "Country", data = ebola_last, type = "multiBarChart")
 n1
 
@@ -72,10 +84,8 @@ ebola_rickshaw <- ebola %>%
     mutate(Date = toJsDate(Date)) %>%
     filter(Type == "Cases") %>%
     arrange(Date)
-
+## plot
 r1 <- Rickshaw$new()
 r1$layer(Count ~ Date, group = "Country", data = ebola_rickshaw, type = "line")
 r1$set(slider = TRUE)
 r1
-
-
