@@ -8,16 +8,7 @@ shinyUI(fluidPage(
 
     sidebarLayout(
         sidebarPanel("Interactive plot components",
-
-                     checkboxGroupInput("countries",
-                                        label = h3("Countries to display"),
-                                        choices = c("Guinea" = "Guinea",
-                                            "Liberia" = "Liberia",
-                                            "Sierra Leone" = "SierraLeone",
-                                            "Nigeria" = "Nigeria",
-                                            "Senegal" = "Senegal",
-                                            "All" = "All"),
-                                        selected = "All"),
+                     uiOutput("countriesList"),
                      checkboxInput("log", "Plot y-axis on log scale")
                      ),
 
