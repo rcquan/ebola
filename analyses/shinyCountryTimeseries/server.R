@@ -59,10 +59,11 @@ shinyServer(function(input, output) {
 
   data_plot <- reactive({
     df_plot <- df5_melt[!is.na(df5_melt$count), ]
-	selection <- input$countries
-	if("All" %in% input$countries || length(input$countries) == 0 ){
+	if(input$all_countries || length(input$countries) == 0){
 		selection <- all
-	}
+    }else{
+        selection <- input$countries
+    }
    df_plot %>% 
 	 filter(place %in% selection) %>%
      mutate(count = as.numeric(count), day=as.numeric(day))
@@ -71,7 +72,7 @@ shinyServer(function(input, output) {
   output$countriesList <- renderUI({
     checkboxGroupInput("countries",
                        label = h3("Countries to display"),
-                       choices = c(all, "All"),
+                       choices = all,
                        selected = "All")
   })
 
