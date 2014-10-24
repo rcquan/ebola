@@ -60,9 +60,10 @@ shinyServer(function(input, output) {
 
 
   plot <- reactive({
+	type = paste0(input$date_offset,".days")
     g <- ggplot(data = data_plot(),
-                aes(x = relative.days, y = count,
-                    group = place, color = place)) +
+                aes_string(x = type, y = "count",
+                    group = "place", color = "place")) +
                         geom_point() + geom_line()+
                             facet_grid(~ type) +
                                 scale_x_continuous(name="Days after first report") +
