@@ -1,28 +1,26 @@
-# ui.R
-<<<<<<< HEAD:analyses/shinyCountryTimeseries/ui.R
-
-# devtools::install_github("rCharts", "ramnathv", ref = "dev")
+# # ui.R
+# <<<<<<< HEAD:analyses/shinyCountryTimeseries/ui.R
+# 
+# # devtools::install_github("rCharts", "ramnathv", ref = "dev")
 library(rCharts)
+# library(shiny)
 library(shiny)
 
-=======
-library(shiny)
-
-shinyUI(fluidPage(
-    titlePanel("Plotting Ebola"),
-
-    tags$head(includeScript("google-analytics.js")),
-
-    sidebarLayout(
-        sidebarPanel("Interactive plot components",
-                     uiOutput("countriesList"),
-                     radioButtons("date_offset", "Date range:", c("Relative"="relative", "Absolute"="absolute")),
-                     checkboxInput("log", "Plot y-axis on log scale")
-        ),
-        mainPanel(p("This graphs the cases and deaths of each country and normalizes the onset dates all to '0' so countries can be compared"),
-                  "Data was all taken from Caitlin River's 'ebola' repository",
-                  a('here', href = 'https://github.com/cmrivers/ebola'),
->>>>>>> upstream/dev-dan-shiny:data_products/shinyCountryTimeseries/ui.R
+# shinyUI(fluidPage(
+#     titlePanel("Plotting Ebola"),
+# 
+#     tags$head(includeScript("google-analytics.js")),
+# 
+#     sidebarLayout(
+#         sidebarPanel("Interactive plot components",
+#                      uiOutput("countriesList"),
+#                      radioButtons("date_offset", "Date range:", c("Relative"="relative", "Absolute"="absolute")),
+#                      checkboxInput("log", "Plot y-axis on log scale")
+#         ),
+#         mainPanel(p("This graphs the cases and deaths of each country and normalizes the onset dates all to '0' so countries can be compared"),
+#                   "Data was all taken from Caitlin River's 'ebola' repository",
+#                   a('here', href = 'https://github.com/cmrivers/ebola')
+#         ))))
 
 shinyUI(pageWithSidebar(
     
@@ -34,15 +32,9 @@ shinyUI(pageWithSidebar(
         ## Tab 1 - ggplot2
         conditionalPanel(condition = "input.conditionedPanels==1",
                          helpText("Interactive plot components"),
-                         checkboxGroupInput("countries",
-                                            label = h3("Countries to display"),
-                                            choices = c("Guinea" = "Guinea",
-                                                        "Liberia" = "Liberia",
-                                                        "Sierra Leone" = "SierraLeone",
-                                                        "Nigeria" = "Nigeria",
-                                                        "Senegal" = "Senegal",
-                                                        "All" = "All"),
-                                            selected = "All"),
+                         uiOutput("countriesList"),
+                         radioButtons("date_offset", "Date range:", 
+                                      c("Relative"="relative", "Absolute"="absolute")),
                          checkboxInput("log", "Plot y-axis on log scale")
         ),
         ## Tab 2 - Rickshaw
