@@ -1,48 +1,8 @@
-<<<<<<< HEAD
 # ui.R
-library(shiny)
 
-shinyUI(fluidPage(
-    titlePanel("Plotting Ebola"),
-
-    tags$head(includeScript("google-analytics.js")),
-
-    sidebarLayout(
-        sidebarPanel("Interactive plot components",
-                     uiOutput("countriesList"),
-                     radioButtons("date_offset", "Date range:", c("Relative"="relative", "Absolute"="absolute")),
-                     checkboxInput("log", "Plot y-axis on log scale")
-        ),
-        mainPanel(p("This graphs the cases and deaths of each country and normalizes the onset dates all to '0' so countries can be compared"),
-                  "Data was all taken from Caitlin River's 'ebola' repository",
-                  a('here', href = 'https://github.com/cmrivers/ebola'),
-
-                  plotOutput("plot")
-                  )
-=======
-# # ui.R
-# <<<<<<< HEAD:analyses/shinyCountryTimeseries/ui.R
-# 
 # # devtools::install_github("rCharts", "ramnathv", ref = "dev")
 library(rCharts)
-# library(shiny)
 library(shiny)
-
-# shinyUI(fluidPage(
-#     titlePanel("Plotting Ebola"),
-# 
-#     tags$head(includeScript("google-analytics.js")),
-# 
-#     sidebarLayout(
-#         sidebarPanel("Interactive plot components",
-#                      uiOutput("countriesList"),
-#                      radioButtons("date_offset", "Date range:", c("Relative"="relative", "Absolute"="absolute")),
-#                      checkboxInput("log", "Plot y-axis on log scale")
-#         ),
-#         mainPanel(p("This graphs the cases and deaths of each country and normalizes the onset dates all to '0' so countries can be compared"),
-#                   "Data was all taken from Caitlin River's 'ebola' repository",
-#                   a('here', href = 'https://github.com/cmrivers/ebola')
-#         ))))
 
 shinyUI(pageWithSidebar(
     
@@ -70,7 +30,6 @@ shinyUI(pageWithSidebar(
         ),
         ## Tab3 - NVD3
         conditionalPanel(condition = "input.conditionedPanels==3",
-                         helpText("Panel 3"),
                          selectInput("type",
                                      label = h3("Choose chart type"),
                                      choices = c("multiBarChart", "multiBarHorizontalChart"),
@@ -102,6 +61,6 @@ shinyUI(pageWithSidebar(
             ),
             ## param needed to generate tabs
             id = "conditionedPanels"
->>>>>>> bb811ff... added tabs for rcharts
         )
+    )
 ))
